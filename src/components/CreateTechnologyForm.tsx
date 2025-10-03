@@ -67,15 +67,20 @@ export function CreateTechnologyForm(
           )}
         </form.AppField>
         <div class="flex flex-row justify-between">
-          <button
-            type="button"
-            class="btn btn-soft btn-info"
-            on:click={completion.load}
-          >
-            <Show when={completion.fetching()} fallback={<Bot />}>
-              <span class="loading loading-spinner"></span>
-            </Show>
-          </button>
+          <form.Subscribe selector={(state) => state.values.name}>
+            {(name) => (
+              <button
+                type="button"
+                class="btn btn-soft btn-info"
+                disabled={!name() || completion.fetching()}
+                on:click={completion.load}
+              >
+                <Show when={completion.fetching()} fallback={<Bot />}>
+                  <span class="loading loading-spinner"></span>
+                </Show>
+              </button>
+            )}
+          </form.Subscribe>
           <form.AppForm>
             <form.Submit />
           </form.AppForm>

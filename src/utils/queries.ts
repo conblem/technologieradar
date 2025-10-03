@@ -53,7 +53,7 @@ const createTechnology = createServerFn({ method: "POST" })
   .validator((data) => InsertTechnology.parse(data))
   .handler(async ({ context: { auth }, data }) => {
     if (data.org !== auth.orgId || !auth.cto) {
-      throw new Error("Invalid org");
+      throw new Error("Invalid org or insufficient permissions");
     }
     return await new Repo().createTechnology(data);
   });

@@ -4,7 +4,6 @@ import { Header } from "../components/Header.tsx";
 import { Radar, RadarContext } from "../components/Radar.tsx";
 import type { SelectTechnology } from "../db/schema.ts";
 import { authMiddleware } from "../middleware/auth.ts";
-import { getAuth } from "../utils/clerk.ts";
 import { technologies } from "../utils/queries.ts";
 import { useQuery } from "@tanstack/solid-query";
 import {
