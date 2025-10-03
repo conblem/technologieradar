@@ -53,7 +53,7 @@ function RouteComponent() {
               </Suspense>
             </div>
           </div>
-          <Header class="static" cto={context().cto} />
+          <Header class="static" cto={context().auth.cto} />
         </div>
       </RadarContext>
     </>
