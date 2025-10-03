@@ -26,12 +26,7 @@ import {
 const auth = createServerFn({ method: "GET" })
   .middleware([authMiddleware])
   .handler(({ context }) => {
-    const auth = getAuth();
-
-    return {
-      ...context,
-      cto: auth.has({ role: "org:admin" }),
-    };
+    return context;
   });
 
 export const Route = createFileRoute("/technologies")({

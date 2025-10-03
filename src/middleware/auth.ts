@@ -19,7 +19,11 @@ export const authMiddleware = createMiddleware({ type: "function" })
 
     return next({
       context: {
-        auth: { userId: auth.userId, orgId: auth.orgId },
+        auth: {
+          userId: auth.userId,
+          orgId: auth.orgId,
+          cto: auth.has({ role: "org:cto" }),
+        },
       },
     });
   });
