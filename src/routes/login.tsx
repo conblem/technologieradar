@@ -30,5 +30,9 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginComponent() {
-  return <ClerkComponent fn="SignIn" />;
+  return (
+    <div class="flex h-full w-full items-center justify-center">
+      <ClerkComponent fn="SignIn" />
+    </div>
+  );
 }
