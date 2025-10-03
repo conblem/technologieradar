@@ -1,0 +1,30 @@
+name: Tests
+
+on:
+  repository_dispatch:
+    types:
+      - 'vercel.deployment.success'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  vitest:
+    if: github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.client_payload.git.sha }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm run test --coverage
+      - uses: codecov/codecov-action@v5
+        with:
+          use_oidc: true
+          override_commit: ${{ github.event.client_payload.git.sha }}

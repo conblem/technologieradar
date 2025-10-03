@@ -1,0 +1,108 @@
+{
+  "id": "60cb2a0c-0ce2-4c1c-9ca4-6e61da38d5d1",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.technologies": {
+      "name": "technologies",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "technologies_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(2048)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "x": {
+          "name": "x",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "y": {
+          "name": "y",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "angle": {
+          "name": "angle",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "((ROUND(DEGREES(ATAN2(0.5 - \"technologies\".\"y\", \"technologies\".\"x\" - 0.5)))::int % 360 + 360) % 360)",
+            "type": "stored"
+          }
+        },
+        "radius": {
+          "name": "radius",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "generated": {
+            "as": "SQRT(POW(\"technologies\".\"x\" - 0.5, 2) + POW(0.5 - \"technologies\".\"y\", 2))",
+            "type": "stored"
+          }
+        },
+        "org": {
+          "name": "org",
+          "type": "char(31)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "angle_check": {
+          "name": "angle_check",
+          "value": "\"technologies\".\"angle\" >= 0 AND \"technologies\".\"angle\" < 360"
+        },
+        "radius_check": {
+          "name": "radius_check",
+          "value": "\"technologies\".\"radius\" > 0 AND \"technologies\".\"radius\" <= 1"
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
